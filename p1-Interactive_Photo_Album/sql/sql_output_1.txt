@@ -1,0 +1,4 @@
+username	firstname	lastname	password	email
+spacejunkie	Bob	Spacey	bob1pass	bspace@spacejunkies.net
+sportslover	Paul	Walker	paulpass93	sportslover@hotmail.com
+traveler	Rebecca	Travolta	rebeccapass15	rebt@explorer.org
