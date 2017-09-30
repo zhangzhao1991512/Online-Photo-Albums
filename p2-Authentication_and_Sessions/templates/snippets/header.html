@@ -1,0 +1,30 @@
+<div>
+  <nav>
+    <div>
+      
+      
+      {% if session['username'] %}
+        <h2 class="center">Logged in as {{user["firstname"]}} {{user["lastname"]}}</h2>
+
+      <ul>
+          <li><a id="nav_home" href="{{url_for('main.main_route')}}">Home</a></li>
+          <li><a id="nav_edit" href="{{ url_for('user.edit_account')}}">Edit Account</a></li>
+          <!-- go to user/edit -->
+
+
+
+          <li><a id="nav_albums" href="{{ url_for('albums.albums_route') }}">My Albums</a></li>
+          <li>
+              <form method="post" action="{{url_for('user.logout')}}">
+                  <input type="submit" value="Logout" id="nav_logout">
+              </form>
+          </li> 
+      {% endif %}
+    </div>
+  
+
+
+  </nav>
+  
+
+</div>

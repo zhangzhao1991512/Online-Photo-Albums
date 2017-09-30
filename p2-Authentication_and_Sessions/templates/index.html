@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% if not login %}
+	<h1>Home Page</h1>
+    	<p class="center">
+      		Welcome to our Pictures Collection website!
+    	</p>
+
+
+    	<div>
+			<h3>You can <a href="{{url_for('user.login_route')}}" id="home_login">sign in</a> here if you are already a member</h3>	
+			<!-- go to /login -->
+		</div>
+		<div>
+			<h3>
+				If you are not a member, you can <a href="{{url_for('user.signup_route')}}" id="home_user_create">join as a member</a> here
+			</h3>
+			<!-- go to /user -->
+		</div>
+
+
+		<div>
+			<h2>Following are the users posting fantastic pictures:<h2>
+			<ul>
+			
+				{% for name in usernames %}
+			        <li><a href="{{ url_for('albums.albums_route', username=name['username']) }}" id="user_albums_{{name['username']}}">{{name['username']}}</a></li>
+				{% endfor %}
+				
+				</ul>
+			<hr>
+		</div>
+
+
+
+
+{% endif %}
+<div>
+	
+	<h2>These are all the public albums:<h2>
+		<hr>
+		<ul>
+		{% for alb in pub_albums %}
+	        <li><a href="{{ url_for('album.album_route', albumid=alb['albumid']) }}" id="album_{{alb['albumid']}}_link">{{alb['title']}}</a></li>
+		{% endfor %}
+		</ul>
+	
+	{% if login %}
+		<hr>
+			<h2>Following are your private albums:</h2>
+		<ul>
+		{% for alb in priv_albums %}
+	        <li><a href="{{ url_for('album.album_route', albumid=alb['albumid']) }}" id="album_{{alb['albumid']}}_link">{{alb['title']}}</a></li>
+		{% endfor %}
+		</ul>
+
+		<hr>
+			<h2>And your friends' private albums you have right to see:<h2>
+		</h2>
+		<ul>
+		{% for alb in fri_albums %}
+	        <li><a href="{{ url_for('album.album_route', albumid=alb['albumid']) }}" id="album_{{alb['albumid']}}_link">{{alb['title']}}</a></li>
+		{% endfor %}
+		</ul>
+	{% endif %}
+
+</div>
+
+{% endblock %}
+

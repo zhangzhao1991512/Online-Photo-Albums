@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div>
+  <div>
+    <h2>Please use your username and password to login:</h2><hr>
+        {% if error1 %}
+          <p class="error"> Username may not be left blank </p>
+        {% endif %}
+        {% if error2 %}
+          <p class="error"> Password may not be left blank </p>
+        {% endif %}
+        {% if error3 %}
+          <p class="error"> Username does not exist </p>
+        {% endif %}
+        {% if error4 %}
+          <p class="error"> Password is incorrect for the specified username </p>
+        {% endif %}
+        <form method="post" action="{{ url_for('user.login_route')}}">
+            <ul style="list-style-type:none">
+                <li>username: <input type="text" name="username" value="" id="login_username_input"> </li>
+                <li>password: <input type="password" name="password" value="" id="login_password_input"></li>
+                <li><input type="submit" name="op" value="login" id="login_submit"></li>
+            </ul>
+        </form> 
+
+        <hr>
+        <p>Don't have an account? <a href="{{ url_for('user.signup_route') }}">Click here to Create One!</a></p>
+  </div>
+</div>
+
+{% endblock %}
+

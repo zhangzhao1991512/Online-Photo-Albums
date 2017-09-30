@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<h2>Please fill up all the informations below to create a new account</h2>
+	{% for error in errors %}
+		{% if error['error'] %}
+			<p class="error">{{error['msg']}}</p>
+		{% endif %}
+	{% endfor %}
+	<form method="post" action="{{url_for('user.signup_route')}}">
+		<ul style="list-style-type:none">
+			<li>username: <input type="text" name="username" value="{{input1}}" id="new_username_input"></li>
+			<li>firstname: <input type="text" name="firstname" value="{{input2}}" id="new_firstname_input"></li>
+			<li>lastname: <input type="text" name="lastname" value="{{input3}}" id="new_lastname_input"></li>
+			<li>password: <input type="password" name="password1" value="{{input4}}" id="new_password1_input"></li>
+			<li>confirm password: <input type="password" name="password2" value="{{input5}}" id="new_password2_input"></li>
+			<li>email: <input type="text" name="email" value="{{input6}}" id="new_email_input"></li>			
+			<li><input type="submit" name="op" value="create" id="new_submit"></li>
+		</ul>
+
+		
+	</form>
+
+{% endblock%}

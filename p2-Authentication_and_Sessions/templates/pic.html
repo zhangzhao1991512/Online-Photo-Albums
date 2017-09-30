@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>PIC</h1>
+    <p class="important">
+      Nice picture!
+    </p>
+    <p class="important" id="pic_{{current_picid}}_caption">
+        {{caption}}
+    </p>
+    {% if edit %}
+        <div>
+            <form method="post" action="{{url_for('pic.pic_route', picid = current_picid)}}">
+                <input type="text" name="caption" value="" id="pic_caption_input">
+                <input type="submit" value="New caption" id="pic_caption_submit">
+                <input type="hidden" name="op" value="caption">
+                <input type="hidden" name="picid" value="{{current_picid}}">
+            </form>
+        </div>
+    {% endif %}
+
+    <div>
+    	<img src="/static/images/{{current_picid}}.{{format}}">
+    </div>
+
+    <div>
+    	<table>
+    	<tr> 
+    		<th>
+    			{% if prev_pic %}
+    				<a href="{{url_for('pic.pic_route', picid = prev_picid)}}" id="prev_pic">Previous Photo</a>
+    			{% endif %}
+			</th>
+    		
+    		<th><a href="{{url_for('album.album_route', albumid = albumid)}}" id="parent_album">Back to album</a></th>
+    		
+    		<th>{% if next_pic %}
+    				<a href="{{url_for('pic.pic_route', picid = next_picid)}}" id="next_pic">Next Photo</a>
+    			{% endif %}
+			</th> 
+		</tr>
+    	</table>
+    </div>
+    	
+
+
+{% endblock %}

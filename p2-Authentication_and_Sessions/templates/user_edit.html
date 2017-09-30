@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<h2>Edit your information here. But ONE AT A TIME</h2>
+	{% if error1 %}
+		<p class="error">{{msg1}}</p>
+	{% endif %}
+	{% if error2 %}
+		<p class="error">{{msg2}}</p>
+	{% endif %}
+	{% if error3 %}
+		<p class="error">{{msg3}}</p>
+	{% endif %}
+	{% if error4 %}
+		<p class="error">{{msg4}}</p>
+	{% endif %}
+
+	<div class="center">
+			<div>
+				<form method="post" action="{{url_for('user.edit_account')}}">
+					<p>Change your firstname:
+						<input type="text" name="firstname" value="" id="update_firstname_input">
+						<input type="submit" name="op" value="edit" id="update_firstname_submit">
+					</p>
+				</form>	
+			</div>
+			
+			<div>
+				<form method="post" action="{{url_for('user.edit_account')}}">
+					<p>Change your lastname:
+						<input type="text" name="lastname" value="" id="update_lastname_input">
+						<input type="submit" name="op" value="edit" id="update_lastname_submit">
+					</p>
+				</form>	
+			</div>
+
+			<div>
+				<form method="post" action="{{url_for('user.edit_account')}}">
+					<p>Change your email:
+						<input type="text" name="email" value="" id="update_email_input">
+						<input type="submit" name="op" value="edit" id="update_email_submit">
+					</p>
+				</form>	
+			</div>
+
+			<div>
+				<form method="post" action="{{url_for('user.edit_account')}}">
+					<p>Change your password:
+					<p>New password: <input type="password" name="password1" value="" id="update_password1_input"></p>
+					<p>Confirm new password: <input type="password" name="password2" value="" id="update_password2_input"></p>	
+					<input type="submit" name="op" value="edit" id="update_password_submit">
+					</p>
+				</form>	
+			</div>
+	</div>
+
+{% endblock%}
