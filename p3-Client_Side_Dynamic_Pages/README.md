@@ -1,1 +1,4 @@
-# p1_sz2es3gbxzw9i50442t9
+# Client Side Dynamic Pages
+Client-side applications impact the frontend (that is, the HTML/CSS/JS), and also the backend. Backends use REST API principles, which create a common interface (the API) used simultaneously by frontend web applications, mobile applications, internet of things (IoT) devices, etc. 
+
+In this project, you will revise the web application that was built in P2 to become a hybrid between a single-page application and the route-based application that currently exists. This means that for some routes of your website, you will not get the entire HTML contents from the server. Instead, you will create client-side JavaScript that will fetch data in the background using AJAX, and then insert the content into the page. You will be adding a caption feature for photos, as well as a REST API in Flask that will be used by your JavaScript to dynamically create pages.
