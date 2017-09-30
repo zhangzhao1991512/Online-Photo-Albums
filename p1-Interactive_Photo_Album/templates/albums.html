@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>ALBUMS</h1>
+    <p class="important">Welcome!</p>
+    {% if edit %}
+		<div> Edit your albums here! </div>    
+	    <table>
+	        <tr> <th>Album Title</th> <th>Edit</th> <th>Delete</th> </tr>  
+			{% for alb in albums %}	
+	        	<tr>
+					<td><a href="{{ url_for('album.album_route', albumid=alb["albumid"])}}" id="album_{{alb["albumid"]}}_link"> {{alb["title"]}}</a></td>
+	                <td><a href="{{ url_for('album.album_edit_route', albumid=alb["albumid"])}}" id="album_edit_{{alb["albumid"]}}_link"> Edit</a></td>
+	                <td><form method="post" action="{{ url_for('albums.albums_edit_route', username=username)}}">
+							<input type="submit" name="op" value="delete" id="delete_album_{{alb["albumid"]}}">
+							<input type="hidden" name="albumid" value={{alb["albumid"]}}>
+						</form>
+					</td>
+				</tr>
+			{% endfor %}
+		
+			<tr>
+				<td>Add a new album:</td>
+				<td>
+					<form method="post" action="{{url_for('albums.albums_edit_route', username=username)}}">
+						<input type="text" name="title" value="The new album's name" id="album_add_name">
+						<input type="submit" name="op" value="add" id="album_add_submit">
+						<input type="hidden" name="username" value={{username}}>
+					<!-- this hidden tag is for the username information in the post request -->
+					</form>
+				</td>
+			</tr>	
+		</table>
+
+		
+
+
+
+    {% else %}
+		<div> These are {{username}}'s albums </div>
+    		<table>
+    			<br>
+        		<tr>
+        			<th>Album Title</th>
+        		</tr>
+			{% for alb in albums %}
+				<tr>
+				<td> 
+					<a href="{{ url_for('album.album_route', albumid=alb["albumid"] ) }}" id="album_{{alb["albumid"]}}_link"> {{alb["title"]}} </a>
+				</td>
+	        	</tr>
+			{% endfor %}
+    		</table>
+
+	<div>You can <a href="{{ url_for('albums.albums_edit_route', username=username) }}" id="user_albums_edit_{{username}}"> edit </a> the albums<div>
+
+
+
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>PIC</h1>
+    <p class="important">
+      Nice picture!
+    </p>
+
+    <div>
+    	<img src="/static/images/{{current_picid}}.{{format}}">
+    </div>
+
+    <div>
+    	<table>
+    	<tr> 
+    		<th>
+    			{% if prev_pic %}
+    				<a href="{{url_for('pic.pic_route', picid = prev_picid)}}" id="prev_pic">Previous Photo</a>
+    			{% endif %}
+			</th>
+    		
+    		<th><a href="{{url_for('album.album_route', albumid = albumid)}}" id="parent_album">Back to album</a></th>
+    		
+    		<th>{% if next_pic %}
+    				<a href="{{url_for('pic.pic_route', picid = next_picid)}}" id="next_pic">Next Photo</a>
+    			{% endif %}
+			</th> 
+		</tr>
+    	</table>
+    </div>
+    	
+
+
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Home Page</h1>
+    	<p class="center">
+      		Welcome to our Pictures Collection website!
+    	</p>
+
+    <hr>
+		<h2>Following are the users posting fantastic pictures<h2>
+	<hr>
+		<ul>
+			{% for name in usernames %}
+		        <li><a href="{{ url_for('albums.albums_route', username=name['username']) }}" id="user_albums_{{name['username']}}">{{name['username']}}</a></li>
+			{% endfor %}
+		</ul>
+
+
+{% endblock %}
+
