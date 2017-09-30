@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+{% block content %}
+	<p>EECS 485 Group 105</p>
+	{% block jsfiles %}
+		<script type="text/javascript" src="/static/js/main.js"></script>	  
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	{% endblock %}
+
+	{% if login %}
+			{% if keyin %}  <!-- all the viewable albums -->
+				<h2> Hi, here are all the Albums you can access<h2>
+				{% for a in albums%}
+					<li>
+						<a href="{{url_for('album.album_route', albumid=a['albumid'])}}">{{a["title"]}}</a>
+					</li>
+				{% endfor %}
+			{% else %}   <!-- /user/edit, can change user information -->
+				<h2>You can edit your information here, but ONE AT A TIME</h2>
+				<!-- missed the class attributes -->
+				{% if error1 %}
+				<p, class="error"> {{msg}} </p>
+				{% endif %}
+				{% if error2 %}
+				<p, class="error"> {{msg2}}</p>
+				{% endif %}
+				{% if error3 %}
+				<p, class="error"> {{msg3}}</p>
+				{% endif %}
+				{% if error4 %}
+				<p, class="error"> {{msg4}}</p>
+				{% endif %}
+				<div>
+					<form id="update_user">
+						<div>
+						 	<p>You can change your first name to:
+							<input type="text" name="firstname" value="" id="update_firstname_input">
+							<input type="submit" name="op" value="update_firstname" id="update_firstname_submit">
+							</p>
+						</div>
+
+							<div> </div>
+						<div>
+							<p>
+							You can change your last name to:
+							<input type="text" name="lastname" value="" id="update_lastname_input">
+							<input type="submit" name="op" value="update_lastname" id="update_lastname_submit">
+							</p>
+						</div>	 
+
+							<div> </div>
+
+						<div>
+							<p>You can change your email to:
+							<input type="text" name="email" value="" id="update_email_input">
+							<input type="submit" name="op" value="update_email" id="update_email_submit">
+							</p>
+						</div>
+
+							<div></div>
+
+						<div>
+							<p>You can change your password here</p>
+							<p>New password: <input type="password" name="password1" value="" id="update_password1_input"></p>
+							<p>Confirm new password: <input type="password" name="password2" value="" id="update_password2_input"></p>
+						</div>
+					</form>
+					<button id="update_submit" onclick="userEditSubmit()"> Save </button>
+				</div>	
+				<!-- new !!!!!!!!!!!!!!!!!!!!!!!!!! -->
+			{% endif %}
+
+	{% else %}
+		{% if keyin %}
+			{% if newuser %} <!-- /user, for new user creation -->
+				<h2>Please fill up all the information below to create a new user for you.</h2>
+					{% for i in errors %}
+						{% if i["error"]%}
+						<!-- we can use <div id="display-error"></div> in base to display error????????????? -->
+							<p class="error">{{i["msg"]}}</p>
+						{% endif %}
+					{% endfor %}	
+					<form id="new_user" class="form-signin">
+						<ul>
+							<br>
+						<li>username: <input type="text" name="username" value="{{input1}}" id="new_username_input"> </li><br>
+						<li>first name: <input type="text" name="firstname" value="{{input2}}" id="new_firstname_input"></li><br>
+						<li>last name: <input type="text" name="lastname" value="{{input3}}" id="new_lastname_input"></li><br>
+						<li>email address: <input type="text" name="email" value="{{input4}}" id="new_email_input"></li><br>
+						<li>password: <input type="password" name="password1" value="{{input5}}" id="new_password1_input"></li><br>
+						<li>confirm password: <input type="password" name="password2" value="{{input6}}" id="new_password2_input"></li><br>
+						</ul>
+					</form>
+					<button id="new_submit" onclick="signupSubmit()">Create New User </button><br>
+					<!-- here is new!!!!!!!!!!!!!!!! -->
+			{% else %}   <!-- /login, the login page -->
+			<h2>Please use your username and password to login.</h2>
+				<form id="form-signin">
+        	        <ul>
+						<li>username: <input type="text" name="username" value="" id="login_username_input"> </li>
+						<li>password: <input type="password" name="password" value="" id="login_password_input"></li>
+                    </ul>
+				</form>
+				<p class = "error"></p>	
+				<button id="login_submit" onclick="loginSubmit()">Login</button>
+				<hr>
+			{% endif %}
+		{% else %}  <!-- /,   the not logged-in public index page -->
+			<h1> Welcome to our HomePage </h1>
+				<div>
+					<h3>You can <a href="{{url_for('main.login_route')}}" id="home_login">sign in</a> here if you are already a member</h3>	
+				</div>
+				<div>
+					<h3> If you are not a member, you can <a href="{{url_for('main.user_route')}}" id="home_user_create">join as a member</a> here</h3>
+				</div>
+
+				<div>
+					<h3>The followings are all the public albums you can view</h3>
+					<ul>
+						{% for id in albumids %}
+							<li><a href ="{{url_for('album.album_route', albumid = id['albumid'])}}" id="album_{{id['albumid']}}_link">{{id['title']}}</a></li>
+						{% endfor %}
+					</ul>
+				</div>	
+
+			<h3>The followings are the users posting fantastic pictures</h3>
+				<ul>
+					{% for name in usernames %}
+			        		<li><a href="{{ url_for('albums.albums_route', username=name['username']) }}" id="user_albums_{{name['username']}}">{{name['username']}}</a></li>
+			        		<!-- what is the id ?-->
+					{% endfor %}
+				</ul>
+		{% endif %}
+	{% endif %}
+{% endblock %}

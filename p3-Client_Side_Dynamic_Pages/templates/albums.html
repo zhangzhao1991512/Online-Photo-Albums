@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>ALBUMS</h1>
+    <hr>
+    <p class="important"></p>
+    {% if edit %}
+        <div> You can edit your albums here! </div>    
+	    <table>
+	        <tr> <th>Album Title</th> <th>Edit</th> <th>Delete</th> </tr>  
+			{% for id in albums %}	
+		        	<tr>
+					<td><a href="{{ url_for('album.album_route', albumid=id["albumid"])}}" id="album_{{id["albumid"]}}_link">{{id["title"]}}</a></td>
+					
+			                <td><a href="{{ url_for('album.album_edit_route', albumid=id["albumid"])}}" id = "album_edit_{{id["albumid"]}}_link"> Edit</a></td>
+			                
+					<td>
+								<form method="post" action="{{ url_for('albums.albums_edit_route', username=username)}}" id="delete_album_{{id["albumid"]}}">
+									<input type="submit" name="op" value="delete" id="delete_album_{{id["albumid"]}}">
+									<input type="hidden" name="albumid" value={{id["albumid"]}}>
+								</form>
+					</td>
+				</tr>
+			{% endfor %}
+			<tr>
+				<td>New:</td>
+				<td>
+					<form method="post" action="{{ url_for('albums.albums_edit_route') }}">
+						<input type="text" name= "title" value="" id="album_add_name">
+						<input type="submit" name="op" value="add" id="album_add_submit">
+<!--						<input type="hidden" name="username" value={{username}}>         Now we use cookie-->
+					</form>
+				</td>
+				<td></td>
+			</tr>
+	    </table>
+
+    {% else %}
+	<div> These are {{username}}'s albums </div>
+    <table>
+    	<br>
+        <tr>
+        	<th>Album Title</th>
+        </tr>
+		{% for id in albums %}
+			<tr>
+			<td> 
+				<a href="{{ url_for('album.album_route', albumid=id["albumid"] ) }}" id="album_{{id["albumid"]}}_link"> {{id["title"]}} </a>
+			</td>
+	        	</tr>
+		{% endfor %}
+    </table>
+    	{% if edit_link %}
+	<div>I would like to <a href="{{ url_for('albums.albums_edit_route') }}" id="user_albums_edit_{{username}}"> edit </a> the albums<div>
+    	{% endif %}
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+	{% block jsfiles %}
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+		<script type="text/javascript" src="/static/js/albumpic.js"></script>
+	{% endblock %}
+
+	<h1>here are the pictures</h1>
+	<div class="edit-component">
+	<a id="parent_album" href="{{ url_for('album.album_route', id=albumid) }}">
+		<button class="btn btn-primary btn-lg">Return to Album</button>
+	</a>
+	</div>	<br>
+
+	<div id="content" class="information-content"></div>
+
+	<script>
+		window.onload = pic('{{ picid }}', '{{ permission }}');
+	</script>
+
+{% endblock %}

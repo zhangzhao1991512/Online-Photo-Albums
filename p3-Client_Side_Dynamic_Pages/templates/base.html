@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="en">
+
+<head>
+	<meta charset="utf-8"/>
+	<meta name="author" content="Bowen Zhang, Minzhe Zhang, Zhao Zhang" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+	
+	<link rel="stylesheet" href="/static/css/style.css" />
+
+	<title>EECS485</title>
+</head>
+
+
+<body>
+
+<div>
+
+	<div>
+		<a href="{{url_for('main.main_route')}}" id="nav_home">Nav Home</a>
+	</div>
+
+	{% if session['username'] %}
+		<h2 class="center">Log in as {{thisuser["firstname"]}} {{thisuser["lastname"]}}</h2>
+		<div>
+			<a href="{{url_for('main.user_edit_route')}}" id="nav_edit">Edit Account</a>
+		</div>
+	 	<div>
+			<a href="{{url_for('albums.albums_route', username = thisuser['username'])}}" id="nav_albums">My Albums</a>
+    		</div>
+		<div>
+			<button id="nav_logout" class="btn btn-primary nav-text" onclick="logout()">Logout</button>
+		</div> 
+	{% endif %}
+  
+	<div id="wow-logout-error"></div>
+
+</div>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+        <script type="text/javascript" src="/static/js/main.js"></script>
+        <script type="text/javascript" src="/static/js/albumpic.js"></script>
+	
+	<div class="center">		
+	{% block content %}{% endblock %}
+	</div>
+
+</body>
+
+<footer>
+	CopyWrite: Those webpages are created by EECS group105
+</footer>
+</html>
